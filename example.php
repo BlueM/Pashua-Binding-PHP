@@ -76,8 +76,8 @@ EOCONF;
 
 // Set the images' paths relative to this file's path /
 // skip images if they can not be found in this file's path
-$bgimg = dirname(__FILE__).'/.demo.png';
-$icon  = dirname(__FILE__).'/.icon.png';
+$bgimg = __DIR__ . '/.demo.png';
+$icon  = __DIR__ . '/.icon.png';
 
 if (file_exists($icon)) {
     // Display Pashua's icon
@@ -143,8 +143,8 @@ function pashua_run($conf, $encoding = 'macroman', $apppath = null) {
     } else {
         // Try find Pashua in one of the common places
         $paths = array(
-            dirname(__FILE__).'/Pashua',
-            dirname(__FILE__)."/$bundlepath",
+            __DIR__ . '/Pashua',
+            __DIR__ . "/$bundlepath",
             "./$bundlepath",
             "/Applications/$bundlepath",
             "$_SERVER[HOME]/Applications/$bundlepath"
