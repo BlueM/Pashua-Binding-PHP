@@ -10,6 +10,11 @@
 // window, bring Terminal.app to the foreground (if necessary) and hit return.
 //
 
+$minVersion = '5.3';
+if (version_compare(PHP_VERSION, $minVersion) < 0) {
+    fwrite(STDERR, "Sorry, this script requires PHP $minVersion or higher\n");
+    exit(1);
+}
 
 // Define what the dialog should be like
 // Take a look at Pashua's Readme file for more info on the syntax
@@ -100,17 +105,18 @@ if (file_exists($bgimg)) {
 # Pass the configuration string to the Pashua module
 $result = pashua_run($conf, 'utf8');
 
-print "     Pashua returned the following array:\n";
-print_r($result);
+print "Pashua returned the following array:\n";
+var_export($result);
 
 
 /**
  * Wrapper function for accessing Pashua from PHP
  *
- * @param string $conf                Configuration string to pass to Pashua
+ * @param string $conf     Configuration string to pass to Pashua
  * @param string $encoding [optional] Configuration string's text encoding (default: "macroman")
- * @param string $apppath [optional]  Absolute filesystem path to directory containing Pashua
+ * @param string $apppath  [optional] Absolute filesystem path to directory containing Pashua
  *
+ * @throws \RuntimeException
  * @return array Associative array of values returned by Pashua
  *
  * @author Carsten Bluem <carsten@bluem.net>
@@ -128,14 +134,13 @@ function pashua_run($conf, $encoding = 'macroman', $apppath = null) {
     // Write configuration string to temporary config file
     $configfile = tempnam('/tmp', 'Pashua_');
     if (false === $fp = @fopen($configfile, 'w')) {
-        throw new Exception("Error trying to open $configfile");
+        throw new \RuntimeException("Error trying to open $configfile");
     }
     fwrite($fp, $conf);
     fclose ($fp);
 
     // Try to figure out the path to pashua
     $bundlepath = "Pashua.app/Contents/MacOS/Pashua";
-    $path       = '';
 
     if ($apppath) {
         // A directory path was given
@@ -151,18 +156,19 @@ function pashua_run($conf, $encoding = 'macroman', $apppath = null) {
         );
         // Then, look in each of these places
         foreach ($paths as $searchpath) {
-            if (file_exists($searchpath) and
-                is_executable($searchpath)) {
+            if (file_exists($searchpath) and is_executable($searchpath)) {
                 // Looks like Pashua is in $dir --> exit the loop
                 $path = $searchpath;
                 break;
             }
         }
-    }
 
-    // Raise an error if we didn't find the application
-    if (empty($path)) {
-        throw new Exception('Unable to locate Pashua. Tried to find it in: '.join(', ', $paths));
+        // Raise an error if we didn't find the application
+        if (empty($path)) {
+            throw new \RuntimeException(
+                'Unable to locate Pashua. Tried to find it in: '.join(', ', $paths)
+            );
+        }
     }
 
     // Call pashua binary with config file as argument and read result
