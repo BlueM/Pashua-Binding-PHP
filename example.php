@@ -118,15 +118,13 @@ var_export($result);
  *
  * @throws \RuntimeException
  * @return array Associative array of values returned by Pashua
- *
- * @author Carsten Bluem <carsten@bluem.net>
  */
 function pashua_run($conf, $encoding = 'macroman', $apppath = null) {
 
     // Check for safe mode
     if (ini_get('safe_mode')) {
         $msg = "To use Pashua you will have to disable safe mode or ".
-               "change pashua_run() to fit your environment.\n";
+               "change " . __FUNCTION__ . "() to fit your environment.\n";
         fwrite(STDERR, $msg);
         exit(1);
     }
