@@ -3,6 +3,8 @@ Overview
 
 This is a PHP language binding (glue code) for using [Pashua](http://www.bluem.net/jump/pashua) from PHP. Pashua is a Mac OS X application for using native GUI dialog windows in various programming languages.
 
+This code can be found in a GitHub repository at https://github.com/BlueM/Pashua-Binding-PHP. For examples in other programming languages, see https://github.com/BlueM/Pashua-Bindings.
+
 
 Usage
 ======
