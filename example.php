@@ -80,8 +80,16 @@ db.tooltip = This is an element of type “defaultbutton” (which is automatica
 
 EOCONF;
 
+if (is_dir('/Volumes/Pashua/Pashua.app')) {
+	// Looks like the Pashua disk image is mounted. Run from there.
+	$customLocation = '/Volumes/Pashua';
+} else {
+	// Search for Pashua in the standard locations
+	$customLocation = null;
+}
+
 // Get the icon from the application bundle
-$iconPath = dirname(dirname(\BlueM\Pashua::getPashuaPath())) . '/Resources/AppIcon@2.png';
+$iconPath = dirname(dirname(\BlueM\Pashua::getPashuaPath($customLocation))) . '/Resources/AppIcon@2.png';
 if (file_exists($iconPath)) {
     $conf .= "img.type = image
 	          img.x = 435
@@ -91,7 +99,7 @@ if (file_exists($iconPath)) {
 	          img.path = $iconPath\n";
 }
 
-$result = \BlueM\Pashua::showDialog($conf);
+$result = \BlueM\Pashua::showDialog($conf, $customLocation);
 
 print "Pashua returned the following array:\n";
 var_export($result);
