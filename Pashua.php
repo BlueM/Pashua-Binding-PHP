@@ -10,12 +10,12 @@
 namespace BlueM;
 
 /**
- * Static class which wraps the two simple functions used for communicating with Pashua
+ * Static class which wraps the two simple methods used for communicating with Pashua
  */
 class Pashua
 {
     /**
-     * Wrapper function for accessing Pashua from PHP
+     * Invokes a Pashua dialog window with the given window configuration
      *
      * @param string $conf           Configuration string to pass to Pashua
      * @param string $customLocation Filesystem path to directory containing Pashua
