@@ -8,12 +8,12 @@ This code can be found in a GitHub repository at https://github.com/BlueM/Pashua
 
 Usage
 ======
-This repository contains two code files:
+This repository contains two source code files:
 
 * “example.php” is an example, which does not do much more than define how the dialog window should look like and use the class in the second file.
 * “Pashua.php” contains a (namespaced) class `BlueM\Pashua`, which declares two static methods. Usually you will only need `showDialog()`, but if you need to find out where Pashua is, you can also use `getPashuaPath()`. You can put “Pashua.php” anywhere you like, and if the place is in your include path, you can be sure you just need a `require` statement to use it. Of course, you can also just take the methods out of the class and use them inlined as functions in your code.
 
-Of course, you will need Pashua on your Mac to run the example. The code expects Pashua.app in one of the “typical” locations, such as the global or the user’s “Applications” folder, or in the folder which contains “example.php”.
+Of course, you will need Pashua on your Mac to run the example. The code expects Pashua.app in one of the “typical” locations, such as the global or the user’s “Applications” folder, or in the folder which contains “example.php”, but will prefer a Pashua version in `/Volumes/Pashua` (which is the mounted path of the Pashua distribution disk image).
 
 
 Compatibility
